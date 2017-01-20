@@ -1,2 +1,2 @@
 # infinite-loop-loader
-A webpack 2 loader to transform `for;;`, `while` and `do while` loops to throw if ∞
+A webpack loader to transform ∞ loops so that they throw Edit
