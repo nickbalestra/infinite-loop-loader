@@ -17,8 +17,7 @@ module.exports = function transformLoopWithLimit (limit) {
 
     if (loopKeywords.indexOf(node.parent.type) > -1 && node.type === 'BlockStatement') {
       node.update(
-        '{ if(__ITER <=0){ throw new Error("Loop exceeded maximum ' +
-        'allowed iterations"); } ' +
+        '{ if(__ITER <=0){ throw new Error("Loop exceeded maximum allowed iterations"); } ' +
         node.source().substr(1).slice(0, -1) +
         ' __ITER--; }'
       )
