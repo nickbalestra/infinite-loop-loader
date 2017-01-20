@@ -1,18 +1,18 @@
-'use strict';
+'use strict'
 
-var falafel = require('falafel');
-var transformLoopWithLimit = require('./transformLoopWithLimit.js');
+const falafel = require('falafel')
+const transformLoopWithLimit = require('./transformLoopWithLimit.js')
 
 module.exports = function (source) {
-  this.cacheable(false);
+  this.cacheable(false)
 
-  var options = this.loaders[this.loaderIndex].options;
-  var limit = options && options.limit || 1e9;
-  var fn = transformLoopWithLimit(limit);
-  var opts = options && options.opts || {
+  const options = this.loaders[this.loaderIndex].options
+  const limit = options && options.limit || 1e9
+  const fn = transformLoopWithLimit(limit)
+  const opts = options && options.opts || {
     allowImportExportEverywhere: true
-  };
+  }
 
-  var output = falafel(source, opts, fn);
-  return output.toString();
-};
+  const output = falafel(source, opts, fn)
+  return output.toString()
+}

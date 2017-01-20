@@ -5,12 +5,6 @@
   "author": "Nick Balestra <nick@balestra.ch>",
   "license": "MIT",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "falafel": "^2.0.0"
-  },
   "homepage": "https://github.com/nickbalestra/infinite-loop-loader#readme",
   "repository": {
     "type": "git",
@@ -25,5 +19,18 @@
     "inifinite-loop",
     "webpackloader",
     "transform"
-  ]
+  ],
+  "scripts": {
+    "test": "standard && jest"
+  },
+  "standard": {
+    "globals": [ "it", "describe", "jest", "expect"]
+  },
+  "dependencies": {
+    "falafel": "^2.0.0"
+  },
+  "devDependencies": {
+    "jest": "^18.1.0",
+    "standard": "^8.6.0"
+  }
 }
