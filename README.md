@@ -6,7 +6,7 @@ A webpack 2 loader to transform ∞ loops so that they throw
 
 Before:
 
-```Javascript
+```JavaScript
 while(true){
   // your logic here
 }
@@ -14,7 +14,7 @@ while(true){
 
 After:
 
-```Javascript
+```JavaScript
 var __ITER = 1000000000; 
 while(true) {
   if (__ITER <= 0) { 
@@ -33,6 +33,28 @@ npm install --save-dev infinite-loop-loader
 
 ## Usage
 
-Add it to your webpack config
+Webpack config example
 
-TODO
+```JavaScript
+...
+module: {
+      rules: [
+        {
+          test: /\.js?$/,
+          use: [
+            loader: 'infinite-loop-loader',
+            options: {
+              // iteration limit
+              limit: 10000,
+              // falafel -> acorn options
+              opts {
+                allowImportExportEverywhere: true
+              }
+            }
+          ]
+        }
+      ],
+      ...
+    }
+...
+```
