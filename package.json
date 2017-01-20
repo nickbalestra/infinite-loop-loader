@@ -1,0 +1,29 @@
+{
+  "name": "infinite-loop-loader",
+  "version": "1.0.0",
+  "description": "A webpack loader to transform ∞ loops so that they throw",
+  "author": "Nick Balestra <nick@balestra.ch>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "falafel": "^2.0.0"
+  },
+  "homepage": "https://github.com/nickbalestra/infinite-loop-loader#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickbalestra/infinite-loop-loader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nickbalestra/infinite-loop-loader/issues"
+  },
+  "keywords": [
+    "webpack",
+    "loader",
+    "inifinite-loop",
+    "webpackloader",
+    "transform"
+  ]
+}
