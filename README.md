@@ -40,7 +40,7 @@ Webpack config example
 module: {
       rules: [
         {
-          test: /\.js?$/,
+          test: /\.js$/,
           use: [
             loader: 'infinite-loop-loader',
             options: {
