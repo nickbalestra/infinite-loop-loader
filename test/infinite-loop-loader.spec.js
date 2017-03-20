@@ -15,11 +15,14 @@ describe('infinite-loop-loader', () => {
       'while(true){ x = 234; } ' +
       'for(var i=1e12;;){ y = 546; }' +
       'do { z = 342; } while(true);' +
+      'loopWhile: while(false) {continue loopWhile;}' +
+      'loopFor: for(var d="value";;) {continue loopFor;}' +
+      'loopDoWhile: do {continue loopDoWhile;} while(3)' +
       'return cb(null,data); };'
 
     const result = loader(source)
 
-    it('should wrap WhileStatement, ForStatement and DoWhileStatement correctlu', () => {
+    it('should wrap WhileStatement, ForStatement and DoWhileStatement correctly', () => {
       expect(result).toMatchSnapshot()
     })
   })

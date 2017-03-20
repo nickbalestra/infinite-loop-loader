@@ -28,7 +28,10 @@ describe('transformLoopWithLimit', () => {
         const nodeMock = {
           type: type,
           update: jest.fn(),
-          source: jest.fn(() => `while(true){}`)
+          source: jest.fn(() => `while(true){}`),
+          parent: {
+            type: 'BlockStatement'
+          }
         }
 
         transformLoop(nodeMock)
@@ -42,6 +45,37 @@ describe('transformLoopWithLimit', () => {
         } else {
           it('shouldn\'t update the node', () => {
             expect(nodeMock.update.mock.calls.length).toBe(0)
+          })
+        }
+      })
+
+      describe(`and the result is invoked on a labeled ${type} node`, () => {
+        const labeledNodeMock ={
+          type: type,
+          parent: {
+            type: 'LabeledStatement',
+            update: jest.fn(),
+            source: jest.fn(() => 'loop_label: while(true) {}')
+          }
+        }
+
+        transformLoop(labeledNodeMock);
+
+        if (loopTypes.indexOf(type) > -1) {
+          it('should prepend a variable declaration with the right value assigned to it', () => {
+            expect(labeledNodeMock.parent.update.mock.calls[0][0]).toContain('var __ITER = ')
+            expect(labeledNodeMock.parent.update.mock.calls[0][0]).toContain(iterationLimit)
+            expect(labeledNodeMock.parent.update.mock.calls[0][0]).toContain('loop_label')
+            expect(labeledNodeMock.parent.update.mock.calls[0].length).toBe(1)
+          })
+          it('should place the label AFTER the variable declaration', () => {
+            var iterPosition = labeledNodeMock.parent.update.mock.calls[0][0].indexOf('var __ITER = ')
+            var labelPosition = labeledNodeMock.parent.update.mock.calls[0][0].indexOf('loop_label')
+            expect(labelPosition).toBeGreaterThan(iterPosition)
+          })
+        } else {
+          it('shouldn\'t update the node', () => {
+            expect(labeledNodeMock.parent.update.mock.calls.length).toBe(0)
           })
         }
       })
