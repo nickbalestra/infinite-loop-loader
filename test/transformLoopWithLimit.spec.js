@@ -50,7 +50,7 @@ describe('transformLoopWithLimit', () => {
       })
 
       describe(`and the result is invoked on a labeled ${type} node`, () => {
-        const labeledNodeMock ={
+        const labeledNodeMock = {
           type: type,
           parent: {
             type: 'LabeledStatement',
@@ -59,7 +59,7 @@ describe('transformLoopWithLimit', () => {
           }
         }
 
-        transformLoop(labeledNodeMock);
+        transformLoop(labeledNodeMock)
 
         if (loopTypes.indexOf(type) > -1) {
           it('should prepend a variable declaration with the right value assigned to it', () => {
@@ -94,7 +94,7 @@ describe('transformLoopWithLimit', () => {
       transformLoop(nodeMock)
 
       it('should updated the body of the loop', () => {
-        expect(nodeMock.update.mock.calls[0][0]).toBe('{ if(__ITER <=0){ throw new Error(\"Loop exceeded maximum allowed iterations\"); } x = 234 __ITER--; }')
+        expect(nodeMock.update.mock.calls[0][0]).toBe('{ if(__ITER <=0){ throw new Error(\"Loop exceeded maximum allowed iterations\"); }x = 234;__ITER--; }')
         expect(nodeMock.update.mock.calls[0].length).toBe(1)
       })
     })

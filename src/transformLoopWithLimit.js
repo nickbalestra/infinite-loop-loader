@@ -1,7 +1,6 @@
 'use strict'
 
 module.exports = function transformLoopWithLimit (limit) {
-
   const loopNodeTypes = ['WhileStatement', 'ForStatement', 'DoWhileStatement']
 
   const isUnlabeledLoop = (node) =>
@@ -18,9 +17,9 @@ module.exports = function transformLoopWithLimit (limit) {
 
   const addGuardsToLoopBody = (node) =>
     node.update(
-      '{ if(__ITER <=0){ throw new Error("Loop exceeded maximum allowed iterations"); } ' +
+      '{ if(__ITER <=0){ throw new Error("Loop exceeded maximum allowed iterations"); }' +
       node.source().substr(1).slice(0, -1) +
-      ' __ITER--; }'
+      ';__ITER--; }'
     )
 
   return function transformLoop (node) {
@@ -28,7 +27,7 @@ module.exports = function transformLoopWithLimit (limit) {
       addVarDeclarationBeforeNode(node)
     }
 
-    if(isLabeledLoop(node)) {
+    if (isLabeledLoop(node)) {
       addVarDeclarationBeforeNode(node.parent)
     }
 
