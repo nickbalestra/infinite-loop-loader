@@ -1,6 +1,6 @@
 {
   "name": "infinite-loop-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A webpack loader to transform ∞ loops so that they throw",
   "author": "Nick Balestra <nick@balestra.ch>",
   "license": "MIT",
@@ -24,7 +24,12 @@
     "test": "standard && jest"
   },
   "standard": {
-    "globals": [ "it", "describe", "jest", "expect"]
+    "globals": [
+      "it",
+      "describe",
+      "jest",
+      "expect"
+    ]
   },
   "dependencies": {
     "falafel": "^2.0.0"
