@@ -12,23 +12,28 @@ module.exports = function transformLoopWithLimit (limit) {
   const isBodyOfLoop = (node) =>
      node.type === 'BlockStatement' && loopNodeTypes.indexOf(node.parent.type) > -1
 
-  const addVarDeclarationBeforeNode = (node) =>
-    node.update('var __ITER = ' + limit + ';' + node.source())
+  const addVarDeclarationBeforeNode = (node, limit) =>
+    node.update(`
+      var __ITER = ${limit};
+      ${node.source()}`
+    )
 
   const addGuardsToLoopBody = (node) =>
     node.update(
-      '{ if(__ITER <=0){ throw new Error("Loop exceeded maximum allowed iterations"); }' +
-      node.source().substr(1).slice(0, -1) +
-      ';__ITER--; }'
+      `{ if (__ITER <= 0) {
+        throw new Error("Loop exceeded maximum allowed iterations");
+      }
+      __ITER--;
+      ${node.source().substr(1)}`
     )
 
   return function transformLoop (node) {
     if (isUnlabeledLoop(node)) {
-      addVarDeclarationBeforeNode(node)
+      addVarDeclarationBeforeNode(node, limit)
     }
 
     if (isLabeledLoop(node)) {
-      addVarDeclarationBeforeNode(node.parent)
+      addVarDeclarationBeforeNode(node.parent, limit)
     }
 
     if (isBodyOfLoop(node)) {

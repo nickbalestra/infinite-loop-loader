@@ -93,8 +93,14 @@ describe('transformLoopWithLimit', () => {
 
       transformLoop(nodeMock)
 
-      it('should updated the body of the loop', () => {
-        expect(nodeMock.update.mock.calls[0][0]).toBe('{ if(__ITER <=0){ throw new Error(\"Loop exceeded maximum allowed iterations\"); }x = 234;__ITER--; }')
+      it('should update the body of the loop', () => {
+        expect(nodeMock.update.mock.calls[0][0]).toBe(
+`{ if (__ITER <= 0) {
+        throw new Error(\"Loop exceeded maximum allowed iterations\");
+      }
+      __ITER--;
+      x = 234}`
+       )
         expect(nodeMock.update.mock.calls[0].length).toBe(1)
       })
     })
